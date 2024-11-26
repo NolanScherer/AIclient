@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<head>AI</head>
+<h1>Ask ai something</h1>
+<textarea id="request" rows="8" cols="60">
+create a list called l
+add 10 random numbers to l 
+find the maximum value in l
+</textarea>
+<br>
+<button onclick="sendText()">Submit</button>
+
+<p id="response"></p>  
+<script>  
+    async function sendText() {
+        const text = document.getElementById('request').value;
+        console.log(text)
+
+        //use POST request to send the text to the backend
+        const response = await fetch('/process', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text})
+        });
+
+        //recieve response
+        const data = await response.text();
+        document.getElementById('response').innerText = data;
+    }
+</script>
+
+<footer>
+    <a href="/Users/nolanscherer/Downloads/CS/Projects/AI thing/chatbot.py">Python code</a>
+    <a href="about.html">About the project</a>
+</footer>
+
