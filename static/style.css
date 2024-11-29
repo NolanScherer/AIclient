@@ -2,49 +2,113 @@ body{
     font-family:Georgia, Arial, Helvetica, Sans-serif,serif;
     font-size:15px;
     color:#5a7dce;
-    background:#565656;
+    background:#969696;
 }
 
  
 h1 {
-    font-size:50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:  xx-large;
+    margin-top: 5%;
+    border-radius: 15%;
+    border-color: rgb(0, 0, 0);
 }
  
 h3 {
     font-size:22px;
 }
  
-#content-wrapper {
+
+textarea {
+
+    margin-bottom: 1%;
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button{
+
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #5a7dce;
+    border-radius: 8px;
+    border-style: none;
+
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.5;
+    outline: none;
+    overflow: hidden;
+    padding: 13px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+button:hover {
+    background-color: #7b22e9;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+}
+
+button:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+button:hover {
+  box-shadow: rgba(113, 41, 185, 0.2) 0 6px 12px;
+}
+
+content-wrapper {
     width:960px;
-    text-align:left;
+    text-align:center;
     margin:0 auto;
     background:#fff;
     padding:15px;
      
 }
  
-#header{
+header{
     width:960px;
     height:120px;
 }
  
-#post-content {
+post-content {
     float:left;
     width:600px;
     padding:0 15px 15px 15px;
 }
+
  
-.sidebar{
-    float:left;
-    width:300px;
-    margin:0 0 0 15px;
-    font-size:15px;
-    list-style:none;
-}
- 
-#footer{
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 60px;
-    background: #fff;
-    padding: 15px;
+
     clear:both;
+}
+footer a {
+    margin: 0 5px; /* Adds equal spacing between links */
 }

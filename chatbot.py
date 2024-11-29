@@ -7,43 +7,12 @@ client = OpenAI(
 )
 completion = client.chat.completions.create(
     model="nvidia/llama-3.1-nemotron-70b-instruct",
-    messages=[{"role":"user","content":'for the following prompt, only write python code: write a list of 10 random integers'}],
+    messages=[{"role":"user","content":'for the following prompt, only write python code: '}],
     temperature=0.5,
     top_p=1,
     max_tokens=1024,
-    stream=True
+    stream=False
 )
-
-ans = ''
-for chunk in completion:
-    if chunk.choices[0].delta.content is not None:
-        try:
-            print(chunk.choices[0].delta.content)
-            exec(chunk.choices[0].delta.content)
-            ans += chunk.choices[0].delta.content
-        except:
-            pass
-
-code = ans.split('\n')
-print(code)
-res = ''
-i = 0
-functions = []
-while i < len(code):
-    if code[i].startswith('def'):
-        func = code[i]
-        i+=1
-        while code[i].startswith('\t'):
-                func+=code[i] + '\n'
-                i+=1
-        functions += func
-
-    if code[i].startswith('print'):
-        thing = code[i][6:-1]
-        if thing in globals():
-            res += globals()[thing] + '\n'
-
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -56,14 +25,38 @@ def process():
     data = request.json
     text = data.get('text', '')
 
+    #create an AI response using nvidia API
+    condition = 'for the following prompt, write only python code. in the last line write # Relevant Variables and their Values: then write all relevant variables'
+    completion = client.chat.completions.create(
+        model="nvidia/llama-3.1-nemotron-70b-instruct",
+        messages=[{"role":"user","content":str(condition)+ text}],
+        temperature=0.5,
+        top_p=1,
+        max_tokens=1024,
+        stream=False
+    )
 
-    return res
+    response = str(completion.choices[0].message)
+    code = []
+
+    #iterate through the list and capture executable lines of code in list 'code'
+    for line in response.split("\\n"):
+        #print(line) 
+        try:
+            exec(line)
+            code += [line]
+        except:
+            #print("err " + line)
+            pass
+
+    #iterate through code statements and return results when correct statement is seen
+    for i in range(len(code)):
+        if code[i] == '# Relevant Variables and their Values:':
+            return code[i:]
+    return 'no significant values computed'
 
 if __name__ == '__main__':
     app.run(debug=True)
 
-# while True:
-#     request = input('ask ai something, or enter \'done\' to quit -> ')
-#     if request == 'done':
-#         break
+
 

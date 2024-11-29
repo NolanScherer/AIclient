@@ -1,13 +1,19 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<head>AI</head>
-<h1>Ask ai something</h1>
+<h1 >
+    Ask ai something
+</h1>
+<div>
 <textarea id="request" rows="8" cols="60">
 create a list called l
 add 10 random numbers to l 
 find the maximum value in l
 </textarea>
 <br>
+</div>
+
+<div>
 <button onclick="sendText()">Submit</button>
+</div>
 
 <p id="response"></p>  
 <script>  
@@ -29,7 +35,7 @@ find the maximum value in l
 </script>
 
 <footer>
-    <a href="/Users/nolanscherer/Downloads/CS/Projects/AI thing/chatbot.py">Python code</a>
+    <a href="https://github.com/NolanScherer/AIclient">Code</a>
     <a href="about.html">About the project</a>
 </footer>
 
