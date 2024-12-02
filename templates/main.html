@@ -3,20 +3,35 @@
     Ask ai something
 </h1>
 <div>
-<textarea id="request" rows="8" cols="60">
-create a list called l
-add 10 random numbers to l 
-find the maximum value in l
-</textarea>
+
+<textarea id="request" rows="8" cols="60"></textarea>
+
 <br>
 </div>
 
-<div>
+<div >
 <button onclick="sendText()">Submit</button>
+<button onclick="suggestion()">Suggestion</button>
 </div>
 
+<script>
+        let i=0;
+
+        let texts = [
+        'create a list called l \nadd 10 random numbers to l\nfind the max value in l',
+        'pick any word\nfind the number of \'a\'s in it',
+        'sort the list [43,6,2,4,7,87.9,5]', 
+        'compute 0.2 + 0.1'];
+        let len = texts.length
+        async function suggestion() {
+            document.getElementById("request").value = texts[i];  
+            i = (i+1) % len;        
+        }
+
+</script>
+
 <p id="response"></p>  
-<script>  
+<script> 
     async function sendText() {
         const text = document.getElementById('request').value;
         console.log(text)
@@ -35,7 +50,7 @@ find the maximum value in l
 </script>
 
 <footer>
-    <a href="https://github.com/NolanScherer/AIclient">Code</a>
-    <a href="about.html">About the project</a>
+    <a href="https://github.com/NolanScherer/AIclient">Github</a>
+    <a href="/about.html">About the Project</a>
 </footer>
 

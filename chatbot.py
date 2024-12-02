@@ -1,6 +1,7 @@
 from openai import OpenAI
 from flask import Flask, request, render_template
 
+
 client = OpenAI(
     base_url = "https://integrate.api.nvidia.com/v1",
     api_key = "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"
@@ -16,8 +17,19 @@ completion = client.chat.completions.create(
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def main():
     return render_template('main.html')
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
+
+
+def formatResult(s):
+    res = ""
+    for i in range(len(s)):
+        res  += s[i][2:] + '\n'
+    return res
 
 @app.route('/process', methods=['POST'])
 def process():
@@ -52,7 +64,7 @@ def process():
     #iterate through code statements and return results when correct statement is seen
     for i in range(len(code)):
         if code[i] == '# Relevant Variables and their Values:':
-            return code[i:]
+            return formatResult(code[i:])
     return 'no significant values computed'
 
 if __name__ == '__main__':

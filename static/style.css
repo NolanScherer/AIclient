@@ -32,7 +32,7 @@ div{
     align-items: center;
 }
 button{
-
+    margin: 5px;
     appearance: none;
     backface-visibility: hidden;
     background-color: #5a7dce;
@@ -80,6 +80,14 @@ button:hover {
   box-shadow: rgba(113, 41, 185, 0.2) 0 6px 12px;
 }
 
+p {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: larger;
+    color: black;
+    font-weight: bold;
+}
 content-wrapper {
     width:960px;
     text-align:center;
